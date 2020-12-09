@@ -1,4 +1,6 @@
-def run_program():
+""" Day 8: Handheld Halting """
+
+def has_loop():
     instr_idx = 0
     acc = 0
     while (True):
@@ -7,7 +9,6 @@ def run_program():
         instr_num = instr[1]
         instr_flag = instr[2]
 
-        # if there is an infinite loop
         if (instr_flag == 1):
             return True
         
@@ -40,6 +41,7 @@ with open('inputs/8.txt') as f:
 
 last_idx = len(instructions)-1
 changed_idx = 0
+orig = 'nop'
 while (True):
     # change instruction
     for i in range(0, len(instructions)):
@@ -47,20 +49,21 @@ while (True):
             instructions[i][0] = 'nop'
             instructions[i][3] = 1
             changed_idx = i
+            orig = 'jmp'
             break
         elif (instructions[i][0] == 'nop' and instructions[i][3] == 0):
             instructions[i][0] = 'jmp'
             instructions[i][3] = 1
             changed_idx = i
+            orig = 'nop'
             break
+        else:
+            continue
     # run program
-    if (not run_program()):
+    if (not has_loop()):
         break
     # change back
-    if (instructions[changed_idx][0] == 'jmp'):
-        instructions[changed_idx][0] = 'nop'
-    elif (instructions[changed_idx][0] == 'nop'):
-        instructions[changed_idx][0] = 'jmp'
+    instructions[changed_idx][0] = orig
     # reset visited
     for instr in instructions:
         instr[2] = 0

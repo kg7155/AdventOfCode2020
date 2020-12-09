@@ -1,3 +1,5 @@
+""" Day 8: Handheld Halting """
+
 instructions = []
 with open('inputs/8.txt') as f:
     for line in f:
