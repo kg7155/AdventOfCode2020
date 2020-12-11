@@ -58,10 +58,10 @@ w = len(ferry[0])
 while(simulate()):
     pass
 
-occ_count = 0
-for i in ferry:
-    for j in i:
-        if j == '#':
-            occ_count += 1
+occupied_count = 0
+for row in ferry:
+    for seat in row:
+        if seat == '#':
+            occupied_count += 1
 
-print(occ_count)
+print(occupied_count)
